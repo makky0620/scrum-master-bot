@@ -9,6 +9,7 @@ A Discord bot that facilitates Planning Poker sessions for agile teams. Built wi
 - Planning Poker: Estimate tasks with team voting
 - Facilitator Selection: Randomly select a facilitator
 - Reminders: Set one-time or recurring reminders
+- Burndown Charts: Track sprint progress with visual burndown charts
 
 ## Setup
 
@@ -128,6 +129,75 @@ Deletes the reminder with the specified ID.
 ```
 
 Edits an existing reminder. All parameters are optional.
+
+### Burndown Charts
+
+Create and manage burndown charts to track sprint progress visually.
+
+#### Creating Burndown Charts
+
+```
+/burndown create title: [title] total_points: [points] start_date: [YYYY-MM-DD] end_date: [YYYY-MM-DD] [channel: #channel]
+```
+
+**Required Parameters:**
+- `title`: Title of the burndown chart
+- `total_points`: Total story points for the sprint (must be greater than 0)
+- `start_date`: Sprint start date in YYYY-MM-DD format
+- `end_date`: Sprint end date in YYYY-MM-DD format (must be after start date)
+
+**Optional Parameters:**
+- `channel`: Channel for the burndown chart (defaults to current channel)
+
+**Usage Examples:**
+```
+# Create a burndown chart in current channel
+/burndown create title: "Sprint 1" total_points: 100 start_date: "2024-01-01" end_date: "2024-01-14"
+
+# Create a burndown chart in specific channel
+/burndown create title: "Sprint 2" total_points: 80 start_date: "2024-01-15" end_date: "2024-01-28" channel: #dev-team
+```
+
+#### Updating Progress
+
+```
+/burndown update chart_id: [chart_id] points_burned: [points] [note: "progress note"]
+```
+
+Updates the progress on a burndown chart by burning down story points.
+
+**Usage Examples:**
+```
+# Update progress without note
+/burndown update chart_id: "abc123" points_burned: 15
+
+# Update progress with note
+/burndown update chart_id: "abc123" points_burned: 20 note: "Completed user stories 1-3"
+```
+
+#### Viewing Burndown Charts
+
+```
+/burndown view chart_id: [chart_id]
+```
+
+Displays detailed information about a specific burndown chart including progress bar and recent entries.
+
+#### Listing Burndown Charts
+
+```
+/burndown list
+```
+
+Displays a list of all your burndown charts with their current progress.
+
+#### Deleting Burndown Charts
+
+```
+/burndown delete chart_id: [chart_id]
+```
+
+Deletes a burndown chart. You can only delete charts you created.
 
 ## Development
 
